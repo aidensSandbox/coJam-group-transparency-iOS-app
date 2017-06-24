@@ -29,10 +29,7 @@ UIAlertViewDelegate
     
     
     
-    
-override var prefersStatusBarHidden: Bool {
-    return true
-}
+ 
 
 override func viewWillAppear(_ animated: Bool) {
     if PFUser.current() != nil {
@@ -43,15 +40,6 @@ override func viewWillAppear(_ animated: Bool) {
     
 override func viewDidLoad() {
         super.viewDidLoad()
-    
-    contView.frame.size.width = view.frame.size.width
-    
-    // Round views corners
-    logo.layer.cornerRadius = logo.bounds.size.width/2
-        
-    containerScrollView.contentSize = CGSize(width: containerScrollView.frame.size.width, height: 550)
-        
-    navigationController?.isNavigationBarHidden = true
 }
     
     
@@ -63,9 +51,19 @@ override func viewDidLoad() {
         
         PFUser.logInWithUsername(inBackground: usernameTxt.text!, password:passwordTxt.text!.lowercased()) {
             (user, error) -> Void in
-            
+            print(user)
             if user != nil { // Login successfull
-                self.dismiss(animated: true, completion: nil)
+                //self.dismiss(animated: true, completion: nil)
+                /*let signupVC = self.storyboard?.instantiateViewController(withIdentifier: "CodeJam") as! CodeJam
+                signupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+                self.present(signupVC, animated: true, completion: nil)
+                */
+                
+                let appDelegate = UIApplication.shared.delegate! as! AppDelegate
+                
+                let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "mainController")
+                appDelegate.window?.rootViewController = initialViewController
+                appDelegate.window?.makeKeyAndVisible()
                 self.hideHUD()
                 
             } else { // Login failed. Try again or SignUp
@@ -83,7 +81,7 @@ override func viewDidLoad() {
 // AlertView delegate
 func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         if alertView.buttonTitle(at: buttonIndex) == "Sign Up" {
-            signupButt(self)
+            //signupButt(self)
         }
         
         if alertView.buttonTitle(at: buttonIndex) == "Reset Password" {
@@ -183,11 +181,11 @@ func getFBUserData() {
     
     
 // MARK: - SIGNUP BUTTON
-@IBAction func signupButt(_ sender: AnyObject) {
+/*@IBAction func signupButt(_ sender: AnyObject) {
     let signupVC = self.storyboard?.instantiateViewController(withIdentifier: "Signup") as! Signup
     signupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
     present(signupVC, animated: true, completion: nil)
-}
+}*/
     
     
     

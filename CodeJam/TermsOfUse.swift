@@ -29,15 +29,7 @@ override func viewDidLoad() {
 
 }
 
-    
-    
-    
-// DISMISS BUTTON
-@IBAction func dismissButt(_ sender: AnyObject) {
-    dismiss(animated: true, completion: nil)
-}
-    
-    
+
     
 override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

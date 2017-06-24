@@ -81,6 +81,9 @@ let PARSE_CLIENT_KEY = "f8GmmDpIcbYHc9z0qxGUZQvHe2qCXBslRnP0Nsf3"
 var audioURLStr = ""
 var tenMessLimit = UserDefaults.standard.bool(forKey: "tenMessLimit")
 
+let STATUS_AVAILABLE = "available"
+let STATUS_BUSY = "busy"
+let AWARENESS_STATUS = false
 
 let USER_USERNAME = "username"
 let USER_AVATAR = "avatar"
@@ -98,9 +101,14 @@ let ROOMS_NAME = "name"
 let ROOMS_IMAGE = "image"
 let ROOMS_USER_POINTER = "userPointer"
 
+let CODEJAM_CLASS_NAME = "CodeJam"
+let CODEJAM_NAME = "name"
+let CODEJAM_USER_POINTER = "userPointer"
 
-
-
+let USERCODEJAM_CLASS_NAME = "UserCodeJam"
+let USERCODEJAM_USER_POINTER = "userPointer"
+let USERCODEJAM_CODEJAM_POINTER = "codeJamPointer"
+let AWARENESS = "awareness"
 
 // EXTENSION TO SHOW TIME AGO DATES
 extension UIViewController {

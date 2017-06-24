@@ -23,20 +23,14 @@ UIAlertViewDelegate
     @IBOutlet weak var roomImage: UIImageView!
     
     
-
-    
-    
-    
-// Hide StatusBar
-override var prefersStatusBarHidden : Bool {
-        return true
-}
-    
 override func viewDidLoad() {
         super.viewDidLoad()
 
 }
 
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
   
     
 // MARK: - CHANGE IMAGE BUTTON

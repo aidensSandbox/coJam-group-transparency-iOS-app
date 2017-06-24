@@ -41,11 +41,10 @@ override func viewDidLoad() {
 }
     
     
-// MARK: - BACK BUTTON
-@IBAction func backButt(_ sender: AnyObject) {
-    dismiss(animated: true, completion: nil)
-}
-    
+    @IBAction func cancel(_ sender: UIButton) {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
     
 // TAP TO DISMISS KEYBOARD
 @IBAction func tapToDismissKeyboard(_ sender: UITapGestureRecognizer) {

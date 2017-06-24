@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B6796321EEE60FC00A02C83 /* Jam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6796311EEE60FC00A02C83 /* Jam.swift */; };
+		4BA6BA6F1EF19A3F00AFA2A7 /* CodeJam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6BA6E1EF19A3F00AFA2A7 /* CodeJam.swift */; };
+		4BA6BA711EF1A5AE00AFA2A7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6BA701EF1A5AE00AFA2A7 /* Users.swift */; };
 		4BABF14C1EDA94B800582FD7 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BABF1481EDA94B800582FD7 /* FBSDKCoreKit.framework */; };
 		4BABF14D1EDA94B900582FD7 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BABF1491EDA94B800582FD7 /* FBSDKLoginKit.framework */; };
 		4BABF14E1EDA94B900582FD7 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BABF14A1EDA94B800582FD7 /* FBSDKShareKit.framework */; };
@@ -43,15 +46,19 @@
 		72E0052F1B9EE32100C28AEA /* Chats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E0052E1B9EE32100C28AEA /* Chats.swift */; };
 		72E0053A1B9F009300C28AEA /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E005391B9F009300C28AEA /* Login.swift */; };
 		72E0053C1B9F298D00C28AEA /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E0053B1B9F298D00C28AEA /* Signup.swift */; };
-		72E0053F1B9F2E0400C28AEA /* Rooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E0053E1B9F2E0400C28AEA /* Rooms.swift */; };
 		72E005451B9F35A100C28AEA /* TermsOfUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E005431B9F35A100C28AEA /* TermsOfUse.swift */; };
 		72E005461B9F35A100C28AEA /* tou.html in Resources */ = {isa = PBXBuildFile; fileRef = 72E005441B9F35A100C28AEA /* tou.html */; };
 		72E005491B9F378300C28AEA /* NewRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E005481B9F378300C28AEA /* NewRoom.swift */; };
+		C6703CC630F60C1B8F8B39B7 /* Pods_CodeJam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1AF9A9B1FC175D9D38DACB /* Pods_CodeJam.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13D35AE81E27C36B005C79A3 /* CodeJam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodeJam.entitlements; sourceTree = "<group>"; };
+		21306D9BC8E5F2C895DD9FA7 /* Pods-CodeJam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeJam.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeJam/Pods-CodeJam.release.xcconfig"; sourceTree = "<group>"; };
 		4B52F3C01EDA97E400B740C0 /* CodeJam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeJam.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B6796311EEE60FC00A02C83 /* Jam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jam.swift; sourceTree = "<group>"; };
+		4BA6BA6E1EF19A3F00AFA2A7 /* CodeJam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeJam.swift; sourceTree = "<group>"; };
+		4BA6BA701EF1A5AE00AFA2A7 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		4BABF1481EDA94B800582FD7 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = CodeJam/Facebook/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		4BABF1491EDA94B800582FD7 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = CodeJam/Facebook/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		4BABF14A1EDA94B800582FD7 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = CodeJam/Facebook/FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -89,10 +96,11 @@
 		72E0052E1B9EE32100C28AEA /* Chats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chats.swift; sourceTree = "<group>"; };
 		72E005391B9F009300C28AEA /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		72E0053B1B9F298D00C28AEA /* Signup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
-		72E0053E1B9F2E0400C28AEA /* Rooms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rooms.swift; sourceTree = "<group>"; };
 		72E005431B9F35A100C28AEA /* TermsOfUse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsOfUse.swift; sourceTree = "<group>"; };
 		72E005441B9F35A100C28AEA /* tou.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tou.html; sourceTree = "<group>"; };
 		72E005481B9F378300C28AEA /* NewRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRoom.swift; sourceTree = "<group>"; };
+		7D1AF9A9B1FC175D9D38DACB /* Pods_CodeJam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeJam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B48C1116DFA2F073588DC493 /* Pods-CodeJam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeJam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeJam/Pods-CodeJam.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +132,7 @@
 				72D8B5101B9DE9A9008E8422 /* CFNetwork.framework in Frameworks */,
 				4BABF1551EDA94D600582FD7 /* Parse.framework in Frameworks */,
 				72D8B50E1B9DE9A5008E8422 /* AudioToolbox.framework in Frameworks */,
+				C6703CC630F60C1B8F8B39B7 /* Pods_CodeJam.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +144,8 @@
 			children = (
 				72D8B4E41B9DC228008E8422 /* CodeJam */,
 				4B52F3C01EDA97E400B740C0 /* CodeJam.app */,
+				CECF312C9BABBB7E4C0BB8ED /* Pods */,
+				B5BF292532CF1B849AC60507 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,11 +153,13 @@
 			isa = PBXGroup;
 			children = (
 				13D35AE81E27C36B005C79A3 /* CodeJam.entitlements */,
+				4BA6BA701EF1A5AE00AFA2A7 /* Users.swift */,
+				4B6796311EEE60FC00A02C83 /* Jam.swift */,
 				72D8B4E71B9DC228008E8422 /* AppDelegate.swift */,
 				72D8B5091B9DD95E008E8422 /* Configs.swift */,
 				72D8B4EB1B9DC228008E8422 /* Main.storyboard */,
 				72E0053D1B9F2B4700C28AEA /* Login - SignUp */,
-				72E0053E1B9F2E0400C28AEA /* Rooms.swift */,
+				4BA6BA6E1EF19A3F00AFA2A7 /* CodeJam.swift */,
 				72E0052E1B9EE32100C28AEA /* Chats.swift */,
 				72DFC60B1BA00B4600CC9CE5 /* Account.swift */,
 				72D8B4E91B9DC228008E8422 /* Record.swift */,
@@ -212,6 +225,23 @@
 			name = "Login - SignUp";
 			sourceTree = "<group>";
 		};
+		B5BF292532CF1B849AC60507 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7D1AF9A9B1FC175D9D38DACB /* Pods_CodeJam.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CECF312C9BABBB7E4C0BB8ED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B48C1116DFA2F073588DC493 /* Pods-CodeJam.debug.xcconfig */,
+				21306D9BC8E5F2C895DD9FA7 /* Pods-CodeJam.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -219,9 +249,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 72D8B5011B9DC228008E8422 /* Build configuration list for PBXNativeTarget "CodeJam" */;
 			buildPhases = (
+				F5B1FE3660364402869BF644 /* [CP] Check Pods Manifest.lock */,
 				72D8B4DE1B9DC228008E8422 /* Sources */,
 				72D8B4DF1B9DC228008E8422 /* Frameworks */,
 				72D8B4E01B9DC228008E8422 /* Resources */,
+				1565A0A26894D15F67C323CA /* [CP] Embed Pods Frameworks */,
+				68CFB31795CDEA84E86D6CA2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -294,19 +327,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1565A0A26894D15F67C323CA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeJam/Pods-CodeJam-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		68CFB31795CDEA84E86D6CA2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeJam/Pods-CodeJam-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5B1FE3660364402869BF644 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		72D8B4DE1B9DC228008E8422 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				72D8B5081B9DCD2A008E8422 /* KYCircularProgress.swift in Sources */,
+				4BA6BA6F1EF19A3F00AFA2A7 /* CodeJam.swift in Sources */,
 				72DFC60C1BA00B4600CC9CE5 /* Account.swift in Sources */,
 				72E005451B9F35A100C28AEA /* TermsOfUse.swift in Sources */,
 				72D8B50A1B9DD95E008E8422 /* Configs.swift in Sources */,
+				4B6796321EEE60FC00A02C83 /* Jam.swift in Sources */,
+				4BA6BA711EF1A5AE00AFA2A7 /* Users.swift in Sources */,
 				72D8B4EA1B9DC228008E8422 /* Record.swift in Sources */,
 				72D8B4E81B9DC228008E8422 /* AppDelegate.swift in Sources */,
 				72E0053A1B9F009300C28AEA /* Login.swift in Sources */,
-				72E0053F1B9F2E0400C28AEA /* Rooms.swift in Sources */,
 				72E005491B9F378300C28AEA /* NewRoom.swift in Sources */,
 				72DFC6211BA06EDF00CC9CE5 /* Settings.swift in Sources */,
 				72E0053C1B9F298D00C28AEA /* Signup.swift in Sources */,
@@ -419,6 +502,7 @@
 		};
 		72D8B5021B9DC228008E8422 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B48C1116DFA2F073588DC493 /* Pods-CodeJam.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -449,6 +533,7 @@
 		};
 		72D8B5031B9DC228008E8422 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21306D9BC8E5F2C895DD9FA7 /* Pods-CodeJam.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

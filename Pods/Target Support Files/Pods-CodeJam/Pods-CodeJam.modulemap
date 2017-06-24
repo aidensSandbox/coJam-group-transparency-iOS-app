@@ -1,0 +1,6 @@
+framework module Pods_CodeJam {
+  umbrella header "Pods-CodeJam-umbrella.h"
+
+  export *
+  module * { export * }
+}

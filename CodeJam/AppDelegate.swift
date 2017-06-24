@@ -14,14 +14,11 @@ import Parse
 import ParseFacebookUtilsV4
 
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
-    
+ 
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
     
@@ -37,7 +34,10 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     // Init Facebook Utils
     PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
 
-
+    // Live Query
+    
+    // User Status
+    
     
     
     // REGISTER FOR PUSH NOTIFICATIONS
@@ -46,8 +46,6 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     application.registerUserNotificationSettings(settings)
     application.registerForRemoteNotifications()
     application.applicationIconBadgeNumber = 0
-
-
     
     
     // ADD 3D-TOUCH SHORTCUT ACTIONS FOR HARD-PRESS ON THE APP ICON
@@ -121,7 +119,7 @@ return true
         installation?.setDeviceTokenFrom(deviceToken)
         installation?.saveInBackground(block: { (succ, error) in
             if error == nil {
-                print("DEVICE TOKEN REGISTERED!")
+                print("DEVICE TOKEN REGISTERED! ---")
             } else {
                 print("\(error!.localizedDescription)")
             }
