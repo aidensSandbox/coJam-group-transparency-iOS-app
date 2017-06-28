@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 
-class Users: UITableViewController{
+class Users: UITableViewController, UISearchBarDelegate{
     
     var usersArray = [PFObject]()
     var roomObj = PFObject(className: ROOMS_CLASS_NAME)
@@ -18,6 +18,7 @@ class Users: UITableViewController{
     let cellReuseIdentifier = "cell"
 
     @IBOutlet weak var usersTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +29,23 @@ class Users: UITableViewController{
         // This view controller itself will provide the delegate methods and row data for the table view.
         usersTableView.delegate = self
         usersTableView.dataSource = self
-        
+        searchBar.delegate = self
         queryUsers()
-        
+        print("####")
+        print(User.shared.status)
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        // Stop doing the search stuff
+        // and clear the text in the search bar
+        searchBar.text = ""
+        // Hide the cancel button
+        searchBar.showsCancelButton = false
+        // You could also change the position, frame etc of the searchBar
     }
     
     // number of rows in table view

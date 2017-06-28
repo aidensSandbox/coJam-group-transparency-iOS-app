@@ -16,8 +16,9 @@ import AudioToolbox
 // MARK: - CUSTOM ROOMS CELL
 class RoomCell: UICollectionViewCell {
     /* Views */
-    @IBOutlet weak var roomImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var addNew: UIImageView!
+    
 }
 
 class User{
@@ -27,6 +28,7 @@ class User{
     static let shared = User()
     var status = STATUS_AVAILABLE
     var awarenessMode = false
+    var imageFile = UIImage(named: "logo")
 }
 
 
@@ -152,7 +154,8 @@ class CodeJam: UIViewController,
         imageFile?.getDataInBackground { (imageData, error) -> Void in
             if error == nil {
                 if let imageData = imageData {
-                    self.profileImg.image = UIImage(data:imageData)
+                    User.shared.imageFile = UIImage(data:imageData)
+                    self.profileImg.image = User.shared.imageFile
                 }}}
     }
     
@@ -168,8 +171,8 @@ class CodeJam: UIViewController,
     
     // MARK: - QUERY ROOMS
     func queryRooms() {
-        showHUD()
-        
+        //showHUD()
+        roomsArray.removeAll()
         let query = PFQuery(className: ROOMS_CLASS_NAME)
         query.whereKey(ROOMS_NAME, contains: searchBar!.text!.uppercased())
         query.order(byDescending: "createdAt")
@@ -185,34 +188,61 @@ class CodeJam: UIViewController,
     }
     
     
+    @IBAction func closeButt(_ sender: AnyObject) {
     
+        let alert = UIAlertController(title: APP_NAME,
+                                      message: "Are you sure you want to logout?",
+                                      preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "Logout", style: .default, handler: { (action) -> Void in
+            PFUser.logOutInBackground(block: { (error) in
+                if error == nil {
+                    // Show the Login screen
+                    let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! Login
+                    self.present(loginVC, animated: true, completion: nil)
+                }
+                self.hideHUD()
+            })
+        })
+        
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in })
+        
+        alert.addAction(ok); alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+        
+    }
     
     // MARK: - COLLECTION VIEW DELEGATES
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return roomsArray.count
+        return roomsArray.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RoomCell", for: indexPath) as! RoomCell
         
         var roomsClass = PFObject(className: ROOMS_CLASS_NAME)
-        roomsClass = roomsArray[indexPath.row]
-        
+        let isIndexValid = roomsArray.indices.contains((indexPath as NSIndexPath).row)
+        print(isIndexValid)
+        if isIndexValid{
+            roomsClass = roomsArray[indexPath.row]
+            cell.addNew.isHidden = true
+            cell.nameLabel.text = "\(roomsClass[ROOMS_NAME]!)"
+        }else{
+            cell.nameLabel.text = ""
+            cell.addNew.isHidden = false
+        }
         // Get room's name
-        cell.nameLabel.text = "\(roomsClass[ROOMS_NAME]!)"
-        
         // Get image
-        let imageFile = roomsClass[ROOMS_IMAGE] as? PFFile
-        imageFile?.getDataInBackground { (imageData, error) -> Void in
-            if error == nil {
-                if let imageData = imageData {
-                    cell.roomImage.image = UIImage(data:imageData)
-                }}}
-        
-        
+        //let imageFile = roomsClass[ROOMS_IMAGE] as? PFFile
+        //imageFile?.getDataInBackground { (imageData, error) -> Void in
+        //    if error == nil {
+        //        if let imageData = imageData {
+        //            cell.roomImage.image = UIImage(data:imageData)
+        //        }}}
         // cell layout
         cell.layer.cornerRadius = 5
         
@@ -221,19 +251,31 @@ class CodeJam: UIViewController,
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.size.width/2 - 20, height: view.frame.size.width/2 - 20)
-    }
+    }*/
     
     
     // MARK: - TAP ON A CELL -> ENTER A CHAT ROOM
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.row == (roomsArray.count){
+            let jam = self.storyboard?.instantiateViewController(withIdentifier: "NewRoom") as! NewRoom
+            jam.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            present(jam, animated: true, completion: nil)
+        }else{
+        
         var roomsClass = PFObject(className: ROOMS_CLASS_NAME)
         roomsClass = roomsArray[indexPath.row]
         
-        let jam = storyboard?.instantiateViewController(withIdentifier: "Jam") as! Jam
+        //let jam = storyboard?.instantiateViewController(withIdentifier: "Jam") as! Jam
+        //navigationController?.pushViewController(jam, animated: true)
+        
+        let jam = self.storyboard?.instantiateViewController(withIdentifier: "Jam") as! Jam
+        jam.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         jam.codejamObj = roomsClass
-        navigationController?.pushViewController(jam, animated: true)
+        present(jam, animated: true, completion: nil)
+        }
     }
     
     

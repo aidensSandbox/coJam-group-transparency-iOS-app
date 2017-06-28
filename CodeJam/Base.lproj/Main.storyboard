@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="YN4-VL-B5a">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="HCM-nM-824">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -25,51 +25,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" misplaced="YES" text="" placeholder="Search for code jam" id="eb5-9F-7IG">
-                                <rect key="frame" x="0.0" y="200" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.1824207165" green="0.2145885287" blue="0.25577965559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="search"/>
-                                <connections>
-                                    <outlet property="delegate" destination="HCM-nM-824" id="udY-yk-N2l"/>
-                                </connections>
-                            </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="ze6-78-WPx" userLabel="roomsCollView">
-                                <rect key="frame" x="0.0" y="244" width="375" height="423"/>
+                                <rect key="frame" x="15" y="213" width="346" height="458"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hKF-w0-BTk">
-                                    <size key="itemSize" width="96" height="96"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="contentInset" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
+                                <inset key="scrollIndicatorInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="hKF-w0-BTk">
+                                    <size key="itemSize" width="65" height="65"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RoomCell" id="gkX-ih-490" customClass="RoomCell" customModule="CodeJam" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="10" width="96" height="96"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="RoomCell" id="gkX-ih-490" customClass="RoomCell" customModule="CodeJam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="96" height="96"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" id="7Ri-LC-nfn" userLabel="roomImage">
-                                                    <rect key="frame" x="0.0" y="0.0" width="96" height="96"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="hVH-TX-qVx" userLabel="nameLabel">
-                                                    <rect key="frame" x="0.0" y="70" width="96" height="26"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="hVH-TX-qVx" userLabel="nameLabel">
+                                                    <rect key="frame" x="2" y="13" width="63" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <color key="backgroundColor" red="0.1824207165" green="0.2145885287" blue="0.25577965559999999" alpha="0.66000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="BebasNeue" family="Bebas Neue" pointSize="14"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="newRoomButt" id="1xf-Bc-bgz">
+                                                    <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
+                                            <outlet property="addNew" destination="1xf-Bc-bgz" id="NWp-0g-hka"/>
                                             <outlet property="nameLabel" destination="hVH-TX-qVx" id="V5j-qe-R6m"/>
-                                            <outlet property="roomImage" destination="7Ri-LC-nfn" id="XwU-ta-JS8"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -79,11 +71,11 @@
                                 </connections>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="gGC-Zo-OlF">
-                                <rect key="frame" x="144" y="70" width="86" height="86"/>
+                                <rect key="frame" x="144" y="35" width="86" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <pageControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" numberOfPages="2" id="tcF-03-Y0a">
-                                <rect key="frame" x="0.0" y="163" width="375" height="37"/>
+                                <rect key="frame" x="0.0" y="129" width="375" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -91,19 +83,37 @@
                                 </connections>
                             </pageControl>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="miniRecButt" id="VfM-R3-MQk">
-                                <rect key="frame" x="202" y="118" width="28" height="28"/>
+                                <rect key="frame" x="202" y="93" width="28" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TWc-UE-cF3">
+                                <rect key="frame" x="16" y="20" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="dismissButtBLACK"/>
+                                <connections>
+                                    <action selector="closeButt:" destination="HCM-nM-824" eventType="touchUpInside" id="CFN-HP-9IA"/>
+                                    <action selector="closeButt:" destination="iZ5-CZ-pnN" eventType="touchUpInside" id="H6A-H0-WsI"/>
+                                </connections>
+                            </button>
+                            <searchBar contentMode="redraw" misplaced="YES" text="" placeholder="Search for code jam" id="eb5-9F-7IG">
+                                <rect key="frame" x="16" y="166" width="343" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.1824207165" green="0.2145885287" blue="0.25577965559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="search"/>
+                                <connections>
+                                    <outlet property="delegate" destination="HCM-nM-824" id="udY-yk-N2l"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Code Jam" id="v6M-SC-Zs1">
                         <barButtonItem key="rightBarButtonItem" image="newRoomButt" id="6v8-GW-laN">
                             <color key="tintColor" red="0.1824207165" green="0.2145885287" blue="0.25577965559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="newRoom:" destination="HCM-nM-824" id="5tX-jJ-XVz"/>
-                                <segue destination="Kh7-Qr-wcw" kind="modal" id="NJg-rR-aBE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -118,7 +128,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6MA-3g-Ye0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-320.5" y="60.5"/>
+            <point key="canvasLocation" x="-187.5" y="686.5"/>
         </scene>
         <!--Chats-->
         <scene sceneID="G5b-6r-H7Q">
@@ -746,7 +756,7 @@
         <!--New Room-->
         <scene sceneID="t1N-qg-obP">
             <objects>
-                <viewController storyboardIdentifier="NewRoom" id="Kh7-Qr-wcw" customClass="NewRoom" customModule="CodeJam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewRoom" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Kh7-Qr-wcw" customClass="NewRoom" customModule="CodeJam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KEX-fz-tkc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -855,7 +865,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jq5-vT-X67">
-                                <rect key="frame" x="158" y="617" width="74" height="30"/>
+                                <rect key="frame" x="0.0" y="596" width="375" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Awareness">
@@ -863,55 +873,41 @@
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="activeAwareness:" destination="iZ5-CZ-pnN" eventType="touchUpInside" id="tlq-IW-m3m"/>
+                                    <action selector="activeAwareness:" destination="iZ5-CZ-pnN" eventType="touchUpInside" id="iFJ-ve-OOV"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="jH2-Fb-rFf" userLabel="usersCollView">
-                                <rect key="frame" x="8" y="77" width="359" height="449"/>
+                                <rect key="frame" x="0.0" y="174" width="375" height="427"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SK7-qs-sXJ">
-                                    <size key="itemSize" width="96" height="117"/>
+                                    <size key="itemSize" width="80" height="80"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="UserCell" id="SGM-lE-o6a" customClass="UserCell" customModule="CodeJam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="96" height="117"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="96" height="117"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="yow-5p-Adk">
-                                                    <rect key="frame" x="16" y="2" width="69" height="56"/>
+                                                    <rect key="frame" x="13" y="13" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DQm-iW-dz9">
-                                                    <rect key="frame" x="26" y="93" width="46" height="30"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="miniRecButt" id="OpS-1X-UX8">
+                                                    <rect key="frame" x="34" y="34" width="28" height="28"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button"/>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="juf-At-QHu">
-                                                    <rect key="frame" x="31" y="76" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cf4-3V-ej1">
-                                                    <rect key="frame" x="34" y="60" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <connections>
+                                            <outlet property="awarenessImage" destination="OpS-1X-UX8" id="hN0-Wn-WIe"/>
                                             <outlet property="userImage" destination="yow-5p-Adk" id="Cl5-Tl-u3f"/>
-                                            <outlet property="userName" destination="cf4-3V-ej1" id="wYY-Js-ibj"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -920,44 +916,72 @@
                                     <outlet property="delegate" destination="iZ5-CZ-pnN" id="eM1-jz-oQj"/>
                                 </connections>
                             </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="lm1-iG-7IN">
+                                <rect key="frame" x="144" y="35" width="86" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" numberOfPages="2" id="NqP-Fv-eYH">
+                                <rect key="frame" x="0.0" y="129" width="375" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="changeStatus:" destination="HCM-nM-824" eventType="valueChanged" id="q3g-f2-KYi"/>
+                                    <action selector="changeStatus:" destination="iZ5-CZ-pnN" eventType="valueChanged" id="tRo-Y6-v9M"/>
+                                </connections>
+                            </pageControl>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="miniRecButt" id="cHt-Q5-BH3">
+                                <rect key="frame" x="202" y="93" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pkg-Jr-5On">
+                                <rect key="frame" x="16" y="20" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="dismissButtBLACK"/>
+                                <connections>
+                                    <action selector="closeButt:" destination="iZ5-CZ-pnN" eventType="touchUpInside" id="xdk-yh-Voz"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Rtg-Qh-jH9">
-                        <barButtonItem key="rightBarButtonItem" image="newRoomButt" id="ady-VO-l4K">
-                            <connections>
-                                <segue destination="kDr-5W-VsN" kind="push" identifier="users" id="oI2-bZ-Vyf"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="newRoomButt" id="ady-VO-l4K"/>
                     </navigationItem>
                     <connections>
                         <outlet property="awarenessBtn" destination="jq5-vT-X67" id="VUF-xx-TqF"/>
+                        <outlet property="awarenessIcon" destination="cHt-Q5-BH3" id="y6D-a9-wvI"/>
                         <outlet property="collectionView" destination="jH2-Fb-rFf" id="h20-rb-QMh"/>
+                        <outlet property="profileImg" destination="lm1-iG-7IN" id="lwc-pZ-qVh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nef-Vm-5K0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="726" y="703"/>
+            <point key="canvasLocation" x="346.5" y="687.5"/>
         </scene>
         <!--Users-->
         <scene sceneID="sEF-0y-BCr">
             <objects>
                 <tableViewController storyboardIdentifier="Users" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kDr-5W-VsN" customClass="Users" customModule="CodeJam" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="79q-mk-Gcn">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="36" sectionHeaderHeight="30" sectionFooterHeight="28" id="79q-mk-Gcn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="HDd-pZ-duo">
+                        <searchBar key="tableHeaderView" contentMode="redraw" showsCancelButton="YES" translucent="NO" id="HDd-pZ-duo">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Title</string>
+                                <string>Title</string>
+                            </scopeButtonTitles>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="name" id="rCa-40-XsX">
-                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="name" rowHeight="36" id="rCa-40-XsX">
+                                <rect key="frame" x="0.0" y="74" width="375" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rCa-40-XsX" id="Hiu-Nm-GK2">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="35.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -967,14 +991,21 @@
                             <outlet property="delegate" destination="kDr-5W-VsN" id="ezf-LM-uJC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Users" id="zbY-Uw-gF1"/>
+                    <navigationItem key="navigationItem" title="Users" id="zbY-Uw-gF1">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="770-tP-tbW">
+                            <connections>
+                                <action selector="cancel:" destination="kDr-5W-VsN" id="B5D-gu-mLi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="79q-mk-Gcn" id="eUe-P9-Ziy"/>
                         <outlet property="usersTableView" destination="79q-mk-Gcn" id="4Gb-21-pBw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Xb-CX-l4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1208" y="-134"/>
+            <point key="canvasLocation" x="1278" y="687"/>
         </scene>
         <!--Record-->
         <scene sceneID="fLG-ri-fgA">
@@ -1091,29 +1122,6 @@
             </objects>
             <point key="canvasLocation" x="-213" y="2051"/>
         </scene>
-        <!--Rooms-->
-        <scene sceneID="XAn-kK-Dmz">
-            <objects>
-                <navigationController storyboardIdentifier="mainController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YN4-VL-B5a" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Rooms" image="tab_rooms" id="KsB-5Z-ES7"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FEe-Mm-g7V">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                            <color key="textColor" red="0.1824207165" green="0.2145885287" blue="0.25577965559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="HCM-nM-824" kind="relationship" relationship="rootViewController" id="uHh-Zc-OfC"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sh2-2s-lsx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-877" y="61"/>
-        </scene>
         <!--Account-->
         <scene sceneID="PgJ-EC-Pex">
             <objects>
@@ -1138,24 +1146,6 @@
             <point key="canvasLocation" x="-656" y="1874"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="g0K-Uj-NyB">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GZY-ER-rXU" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgR-cU-O7p">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="iZ5-CZ-pnN" kind="relationship" relationship="rootViewController" id="jp9-KH-N8C"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="As2-WN-4Zm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="153" y="703"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="6eu-wK-3Nz">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Tlb-NA-U9E" sceneMemberID="viewController">
@@ -1178,6 +1168,24 @@
             </objects>
             <point key="canvasLocation" x="-1311.5" y="-859.5"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Y4V-eH-XLp">
+            <objects>
+                <navigationController storyboardIdentifier="UsersNav" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3tf-0L-DBI" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Szr-1w-Sz8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kDr-5W-VsN" kind="relationship" relationship="rootViewController" id="RG7-w0-8YD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WMa-b9-fid" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="777.5" y="687.5"/>
+        </scene>
     </scenes>
     <resources>
         <image name="caBuzzIt" width="44" height="44"/>
@@ -1193,7 +1201,6 @@
         <image name="recButt" width="100" height="100"/>
         <image name="settingsButt" width="44" height="44"/>
         <image name="tab_account" width="44" height="44"/>
-        <image name="tab_rooms" width="44" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

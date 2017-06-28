@@ -54,16 +54,10 @@ override func viewDidLoad() {
             print(user)
             if user != nil { // Login successfull
                 //self.dismiss(animated: true, completion: nil)
-                /*let signupVC = self.storyboard?.instantiateViewController(withIdentifier: "CodeJam") as! CodeJam
+                let signupVC = self.storyboard?.instantiateViewController(withIdentifier: "CodeJam") as! CodeJam
                 signupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
                 self.present(signupVC, animated: true, completion: nil)
-                */
-                
-                let appDelegate = UIApplication.shared.delegate! as! AppDelegate
-                
-                let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "mainController")
-                appDelegate.window?.rootViewController = initialViewController
-                appDelegate.window?.makeKeyAndVisible()
+ 
                 self.hideHUD()
                 
             } else { // Login failed. Try again or SignUp
