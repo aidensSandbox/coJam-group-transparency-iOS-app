@@ -56,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         if let pitch = motionMgr.deviceMotion?.attitude.pitch
         {
-            print(pitch)
             if pitch < 0.5 && !notificationShown
             {
                 /*let content = UNMutableNotificationContent()
