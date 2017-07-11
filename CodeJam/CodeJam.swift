@@ -1,17 +1,16 @@
 /*-------------------------
  
- - BuzzIt -
+ - Audesis -
  
- created by FV iMAGINATION © 2015
+ created by Alvaro Raminelli © 2017
  All Rights reserved
  
  -------------------------*/
 
 import UIKit
 import Parse
-import GoogleMobileAds
 import AudioToolbox
-
+import ParseLiveQuery
 
 // MARK: - CUSTOM ROOMS CELL
 class RoomCell: UICollectionViewCell {
@@ -29,6 +28,7 @@ class User{
     var status = STATUS_AVAILABLE
     var awarenessMode = false
     var imageFile = UIImage(named: "logo")
+    var currentRoom:PFObject?
 }
 
 
@@ -37,7 +37,6 @@ class CodeJam: UIViewController,
     UICollectionViewDataSource,
     UICollectionViewDelegate,
     UICollectionViewDelegateFlowLayout,
-    GADBannerViewDelegate,
     UISearchBarDelegate
 {
     
@@ -47,36 +46,25 @@ class CodeJam: UIViewController,
     @IBOutlet weak var newRoomButton: UIBarButtonItem!
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var pageControl: UIPageControl!
-    //@IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var awarenessIcon: UIImageView!
    
-    //Ad banners properties
-    var adMobBannerView = GADBannerView()
-    
-    
-    
     /* Variables */
     var roomsArray = [PFObject]()
     
-    
-    
-    
     override func viewDidAppear(_ animated: Bool) {
-        print("-----")
-        print(PFUser.current())
-        
+        print("viewDidAppear")
         self.profileImg.layer.cornerRadius = self.profileImg.frame.size.width / 2;
         self.profileImg.clipsToBounds = true
         self.profileImg.layer.borderWidth = 4.0
         
         self.pageControl.numberOfPages = 2
-        //self.pageControl.frame = CGRect(x: 0, y: 0, width: 386,height: 200)
-        // USER IS NOT LOGGED IN
+    
         self.awarenessIcon.isHidden = true;
         self.awarenessIcon.layer.cornerRadius = self.awarenessIcon.frame.size.width / 2;
         self.awarenessIcon.clipsToBounds = true
         self.awarenessIcon.layer.borderWidth = 3.0
         self.awarenessIcon.layer.borderColor = UIColor.black.cgColor
+        
         if PFUser.current() == nil {
             let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! Login
             present(loginVC, animated: true, completion: nil)
@@ -86,6 +74,7 @@ class CodeJam: UIViewController,
             showUserDetails()
             setStatus()
             queryRooms()
+            
             // Associate the device with a user for Push Notifications
             let installation = PFInstallation.current()
             installation?["username"] = PFUser.current()!.username
@@ -93,7 +82,15 @@ class CodeJam: UIViewController,
             installation?.saveInBackground(block: { (succ, error) in
                 if error == nil {
                     print("PUSH REGISTERED FOR: \(PFUser.current()!.username!)")
-                }})
+                }
+            })
+            
+            if(User.shared.currentRoom != nil){
+                self.joinInRoom()
+            }
+            
+            subscribeToInvitation()
+            
         }
     }
     
@@ -101,37 +98,65 @@ class CodeJam: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Reset app's badge icon to 0
         UIApplication.shared.applicationIconBadgeNumber = 0
-        print("*********")
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         profileImg.isUserInteractionEnabled = true
         profileImg.addGestureRecognizer(tapGestureRecognizer)
         
-        /*print((scrollView?.frame.size.width)!)
-        let scrollWidth = (scrollView?.frame.size.width)!
-        let scrollHeight = (scrollView?.frame.size.height)!
-        scrollView?.contentSize = CGSize(width: (scrollWidth * 2), height: scrollHeight)
-        scrollView?.delegate = self;
-        scrollView?.isPagingEnabled=true
+        if PFUser.current() != nil {
+            try? PFUser.current()?.fetch()
+            if(PFUser.current()?[USER_CURRENTROOM] != nil){
+                let currentRoom = PFUser.current()![USER_CURRENTROOM] as! PFObject
+                let query = PFQuery(className: ROOMS_CLASS_NAME)
+                if let object = try? query.getObjectWithId(currentRoom.objectId!) {
+                    User.shared.currentRoom = object
+                }
+                User.shared.status = PFUser.current()![USER_STATUS] as! String
+            }
+        }
         
-        for i in 0...2 {
-            let textView = UITextView.init()
-            /*textView.frame = CGRect(x: scrollWidth * CGFloat (i), y: 0, width: scrollWidth,height: scrollHeight)*/
-            scrollView?.addSubview(textView)
-        }*/
-        
-        // Init ad banners
-        //initAdMobBanner()
-        
-        
-        // Call the query
-        //if PFUser.current() != nil { queryRooms() }
     }
     
-    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
-        print("imageTapped")
+    func showInvite(room:PFObject){
+        
+        let alert = UIAlertController(title: APP_NAME,
+                                      message: "You have been invited to join in CodeJam \(room[ROOMS_NAME])",
+            preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "Accept", style: .default, handler: { (action) -> Void in
+            User.shared.currentRoom = room
+            self.updateCurrentRoom()
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in })
+        alert.addAction(ok); alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    var subscriptionInvitation: Subscription<PFObject>?
+    func subscribeToInvitation(){
+        print("@@@ subscribeTo JAM Invitation@@@")
+        let query: PFQuery<PFObject> = PFQuery(className:CODEJAM_INVITE_CLASS_NAME)
+        query.whereKey(CODEJAM_INVITE_USER_POINTER, equalTo: PFUser.current()!)
+        subscriptionInvitation = liveQueryClient.subscribe(query).handle(Event.created) { _, object in
+            var room = object[CODEJAM_INVITE_ROOM_POINTER] as! PFObject;
+            let query = PFQuery(className: ROOMS_CLASS_NAME)
+            query.whereKey("objectId", equalTo:room.objectId)
+            query.findObjectsInBackground { (objects, error)-> Void in
+                if error == nil {
+                    var rObj = PFObject(className: ROOMS_CLASS_NAME)
+                    rObj = objects![0]
+                    self.showInvite(room:rObj)
+                }}
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        subscriptionInvitation = nil
+    }
+    
+    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
         if User.shared.awarenessMode {
             User.shared.awarenessMode = false;
             self.awarenessIcon.isHidden = true;
@@ -139,8 +164,6 @@ class CodeJam: UIViewController,
             User.shared.awarenessMode = true;
             self.awarenessIcon.isHidden = false;
         }
-
-        // Your action
     }
     
     
@@ -171,7 +194,7 @@ class CodeJam: UIViewController,
     
     // MARK: - QUERY ROOMS
     func queryRooms() {
-        //showHUD()
+        
         roomsArray.removeAll()
         let query = PFQuery(className: ROOMS_CLASS_NAME)
         query.whereKey(ROOMS_NAME, contains: searchBar!.text!.uppercased())
@@ -201,10 +224,8 @@ class CodeJam: UIViewController,
                     let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! Login
                     self.present(loginVC, animated: true, completion: nil)
                 }
-                self.hideHUD()
             })
         })
-        
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in })
         
@@ -226,7 +247,7 @@ class CodeJam: UIViewController,
         
         var roomsClass = PFObject(className: ROOMS_CLASS_NAME)
         let isIndexValid = roomsArray.indices.contains((indexPath as NSIndexPath).row)
-        print(isIndexValid)
+        
         if isIndexValid{
             roomsClass = roomsArray[indexPath.row]
             cell.addNew.isHidden = true
@@ -235,28 +256,13 @@ class CodeJam: UIViewController,
             cell.nameLabel.text = ""
             cell.addNew.isHidden = false
         }
-        // Get room's name
-        // Get image
-        //let imageFile = roomsClass[ROOMS_IMAGE] as? PFFile
-        //imageFile?.getDataInBackground { (imageData, error) -> Void in
-        //    if error == nil {
-        //        if let imageData = imageData {
-        //            cell.roomImage.image = UIImage(data:imageData)
-        //        }}}
-        // cell layout
-        cell.layer.cornerRadius = 5
         
+        cell.layer.cornerRadius = 5
         
         return cell
     }
     
-    
-    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.size.width/2 - 20, height: view.frame.size.width/2 - 20)
-    }*/
-    
-    
-    // MARK: - TAP ON A CELL -> ENTER A CHAT ROOM
+    // MARK: - TAP ON A CELL -> ENTER A JAM ROOM
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if indexPath.row == (roomsArray.count){
@@ -264,24 +270,14 @@ class CodeJam: UIViewController,
             jam.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
             present(jam, animated: true, completion: nil)
         }else{
-        
-        var roomsClass = PFObject(className: ROOMS_CLASS_NAME)
-        roomsClass = roomsArray[indexPath.row]
-        
-        //let jam = storyboard?.instantiateViewController(withIdentifier: "Jam") as! Jam
-        //navigationController?.pushViewController(jam, animated: true)
-        
-        let jam = self.storyboard?.instantiateViewController(withIdentifier: "Jam") as! Jam
-        jam.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        jam.codejamObj = roomsClass
-        present(jam, animated: true, completion: nil)
+            
+            var roomsClass = PFObject(className: ROOMS_CLASS_NAME)
+            roomsClass = roomsArray[indexPath.row]
+            User.shared.currentRoom = roomsClass
+            updateCurrentRoom()
+            
         }
     }
-    
-    
-    
-    
-    
     
     // MARK: - SEARCH BAR DELEGATES
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -299,9 +295,65 @@ class CodeJam: UIViewController,
         searchBar.text = ""
     }
     
+    func updateCurrentRoom(){
+        let updatedUser = PFUser.current()!
+        updatedUser[USER_CURRENTROOM] = User.shared.currentRoom
+        updatedUser.saveInBackground { (success, error) -> Void in
+            if error == nil {
+                self.joinInRoom()
+            } else {
+            
+            }
+        }
+    }
+   
+    func removeCurrentRoom(){
+        let updatedUser = PFUser.current()!
+        updatedUser[USER_CURRENTROOM] = NSNull()
+        updatedUser.setObject(NSNull(),forKey: USER_CURRENTROOM)
+        print(updatedUser)
+        updatedUser.saveInBackground { (success, error) -> Void in
+            if error == nil {
+                print(success)
+            } else {
+                print(error)
+            }
+        }
+    }
+
+    func joinInRoom(){
+        print("joinInRoom")
+        print(User.shared.currentRoom!)
+        let jam = self.storyboard?.instantiateViewController(withIdentifier: "Jam") as! Jam
+        jam.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        jam.codejamObj = User.shared.currentRoom!
+        present(jam, animated: true, completion: nil)
+        
+    }
     
-    
-    
+    var subscription: Subscription<PFObject>?
+    func subscribeTo(){
+        print("@@@ subscribeTo JAM @@@")
+        let query: PFQuery<PFObject> = PFQuery(className:USERCODEJAM_CLASS_NAME)
+        query.whereKey(USERCODEJAM_USER_POINTER, equalTo: PFUser.current()!)
+        query.whereKey(USERCODEJAM_USER_STATUS, equalTo: "invited")
+        subscription = liveQueryClient.subscribe(query).handle(Event.created) { _, object in
+            print("Inveted @ Chat Room");
+            print(object);
+            let alert = UIAlertController(title: APP_NAME,
+                                          message: "You have been invited to join in CodeJam",
+                                          preferredStyle: .alert)
+            
+            let ok = UIAlertAction(title: "Accept", style: .default, handler: { (action) -> Void in
+                self.dismiss(animated: true, completion: nil)
+                User.shared.currentRoom = object[CHAT_ROOM_POINTER] as! PFObject
+                self.updateCurrentRoom()
+            })
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in })
+            alert.addAction(ok); alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
     // MARK: - REFRESH ROOMS BUTTON
     @IBAction func refreshButt(_ sender: AnyObject) {
@@ -312,18 +364,9 @@ class CodeJam: UIViewController,
         // Call query
         if PFUser.current() != nil { queryRooms() }
     }
-    
-    @IBAction func newRoom(_ sender: UIBarButtonItem) {
-        // MARK: - MAKE A NEW ROOM BUTTON
-        let nrVC = self.storyboard?.instantiateViewController(withIdentifier: "NewRoom") as! NewRoom
-        nrVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        present(nrVC, animated: true, completion: nil)
-    }
-    
+
     
     @IBAction func changeStatus(_ sender: UIPageControl) {
-        
-        print(sender.currentPage)
         if sender.currentPage == 0 {
             User.shared.status = STATUS_AVAILABLE
         }else{
@@ -331,67 +374,6 @@ class CodeJam: UIViewController,
         }
         setStatus()
     }
-    
-    
-    
-    
-    // MARK: - AdMob BANNER METHODS
-    func initAdMobBanner() {
-        adMobBannerView.adSize =  GADAdSizeFromCGSize(CGSize(width: 320, height: 50))
-        adMobBannerView.frame = CGRect(x: 0, y: self.view.frame.size.height, width: 320, height: 50)
-        adMobBannerView.adUnitID = ADMOB_UNIT_ID
-        adMobBannerView.rootViewController = self
-        adMobBannerView.delegate = self
-        view.addSubview(adMobBannerView)
-        
-        let request = GADRequest()
-        adMobBannerView.load(request)
-    }
-    
-    
-    // Hide the banner
-    func hideBanner(_ banner: UIView) {
-        UIView.beginAnimations("hideBanner", context: nil)
-        // Hide the banner moving it below the bottom of the screen
-        banner.frame = CGRect(x: 0, y: self.view.frame.size.height, width: banner.frame.size.width, height: banner.frame.size.height)
-        UIView.commitAnimations()
-        banner.isHidden = true
-        
-    }
-    
-    // Show the banner
-    func showBanner(_ banner: UIView) {
-        UIView.beginAnimations("showBanner", context: nil)
-        
-        // Move the banner on the bottom of the screen
-        banner.frame = CGRect(x: view.frame.size.width/2 - banner.frame.size.width/2,
-                              y: view.frame.size.height - banner.frame.size.height - 48,
-                              width: banner.frame.size.width,
-                              height: banner.frame.size.height);
-        UIView.commitAnimations()
-        banner.isHidden = false
-        
-    }
-    
-    // AdMob banner available
-    func adViewDidReceiveAd(_ view: GADBannerView) {
-        print("AdMob loaded!")
-        showBanner(adMobBannerView)
-    }
-    
-    // NO AdMob banner available
-    func adView(_ view: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("AdMob Can't load ads right now, they'll be available later \n\(error)")
-        hideBanner(adMobBannerView)
-    }
-    
-    
-    
-    
-    
-    
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

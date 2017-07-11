@@ -864,20 +864,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jq5-vT-X67">
-                                <rect key="frame" x="0.0" y="596" width="375" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Awareness">
-                                    <color key="titleColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="activeAwareness:" destination="iZ5-CZ-pnN" eventType="touchUpInside" id="iFJ-ve-OOV"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="jH2-Fb-rFf" userLabel="usersCollView">
-                                <rect key="frame" x="0.0" y="174" width="375" height="427"/>
+                                <rect key="frame" x="0.0" y="174" width="375" height="416"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SK7-qs-sXJ">
@@ -920,6 +908,10 @@
                                 <rect key="frame" x="144" y="35" width="86" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="activeAwareness" id="9DV-Pc-QwC">
+                                <rect key="frame" x="153" y="594" width="69" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <pageControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" numberOfPages="2" id="NqP-Fv-eYH">
                                 <rect key="frame" x="0.0" y="129" width="375" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -942,6 +934,10 @@
                                     <action selector="closeButt:" destination="iZ5-CZ-pnN" eventType="touchUpInside" id="xdk-yh-Voz"/>
                                 </connections>
                             </button>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="deactiveAwareness" id="OaP-38-te6">
+                                <rect key="frame" x="153" y="594" width="69" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -949,10 +945,12 @@
                         <barButtonItem key="rightBarButtonItem" image="newRoomButt" id="ady-VO-l4K"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="awarenessBtn" destination="jq5-vT-X67" id="VUF-xx-TqF"/>
+                        <outlet property="activeButton" destination="9DV-Pc-QwC" id="3t7-Z6-6kj"/>
                         <outlet property="awarenessIcon" destination="cHt-Q5-BH3" id="y6D-a9-wvI"/>
                         <outlet property="collectionView" destination="jH2-Fb-rFf" id="h20-rb-QMh"/>
+                        <outlet property="deactiveButton" destination="OaP-38-te6" id="2ZQ-WR-t83"/>
                         <outlet property="profileImg" destination="lm1-iG-7IN" id="lwc-pZ-qVh"/>
+                        <outlet property="statusControl" destination="NqP-Fv-eYH" id="M2k-Aa-dkd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nef-Vm-5K0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -981,7 +979,7 @@
                                 <rect key="frame" x="0.0" y="74" width="375" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rCa-40-XsX" id="Hiu-Nm-GK2">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="35.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -1188,8 +1186,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="activeAwareness" width="44" height="44"/>
         <image name="caBuzzIt" width="44" height="44"/>
         <image name="caReplay" width="44" height="44"/>
+        <image name="deactiveAwareness" width="44" height="44"/>
         <image name="dismissButtBLACK" width="44" height="44"/>
         <image name="facebook_butt" width="260" height="44"/>
         <image name="logo" width="100" height="100"/>

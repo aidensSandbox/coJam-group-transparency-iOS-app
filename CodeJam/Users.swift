@@ -31,8 +31,8 @@ class Users: UITableViewController, UISearchBarDelegate{
         usersTableView.dataSource = self
         searchBar.delegate = self
         queryUsers()
-        print("####")
-        print(User.shared.status)
+        roomObj = User.shared.currentRoom as! PFObject
+        
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -95,28 +95,40 @@ class Users: UITableViewController, UISearchBarDelegate{
     
     }
     
+    //let CODEJAM_INVITE_CLASS_NAME = "CodeJamInvite"
+    //let CODEJAM_INVITE_USER_POINTER = "userPointer"
+    //let CODEJAM_INVITE_ROOM_POINTER = "roomPointer"
+    
     func addUser(_ user: PFUser) {
-        print("### Saving User ###")
-        print(user)
-        showHUD()
-        
-        let userCodeJamClass = PFObject(className: USERCODEJAM_CLASS_NAME)
-        
-        // Save PFUser as a Pointer
-        userCodeJamClass[USERCODEJAM_USER_POINTER] = user
-        userCodeJamClass[CHAT_ROOM_POINTER] = roomObj
-        // Saving block
-        userCodeJamClass.saveInBackground { (success, error) -> Void in
+        print("### Saving Invite ###")
+        print(roomObj)
+        var jamObj = PFObject(className: CODEJAM_INVITE_CLASS_NAME)
+        jamObj[CODEJAM_INVITE_USER_POINTER] = user
+        jamObj[CODEJAM_INVITE_ROOM_POINTER] = roomObj
+        jamObj.saveInBackground { (success, error) -> Void in
             if error == nil {
-                self.hideHUD()
-                _ = self.navigationController?.popViewController(animated: true)
-                // error on saving
+                print("Saved with success")
+                self.close()
             } else {
-                self.simpleAlert("\(error!.localizedDescription)")
-                self.hideHUD()
-            }}
+                print("\(error!.localizedDescription)")
+            }
+        }
     }
-
+    
+    func close(){
+    
+        let alert = UIAlertController(title: APP_NAME,
+                                      message: "The invitation has been sent.",
+                                      preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            self.dismiss(animated: true, completion: nil)
+        })
+        
+        alert.addAction(ok);
+        present(alert, animated: true, completion: nil)
+        
+    }
     
     // CREATE ROOM BUTTON -> SAVE IT TO PARSE DATABASE
     /*@IBAction func createRoomButt(_ sender: AnyObject) {

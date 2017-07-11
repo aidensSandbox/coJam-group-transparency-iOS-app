@@ -10,7 +10,7 @@ All Rights reserved
 
 import Foundation
 import UIKit
-
+import ParseLiveQuery
 
 // EDIT THE RED STRING BELOW ACCORDINGLY TO THE NEW NAME YOU'LL GIVE TO THIS APP
 let APP_NAME = "CodeJam"
@@ -22,7 +22,7 @@ let RECORD_MAX_DURATION: TimeInterval = 10.0
 
 
 // YOU CAN CHANGE THE TIME WHEN THE APP WILL REFRESH THE CHATS (PLEASE NOTE THAT A LOW VALUE MAY AFFECT THE STABILITY OF THE APP, WE THINK 30 seconds A GOOD MINIMUM REFRESH TIME)
-let REFRESH_TIME: TimeInterval = 30.0
+let REFRESH_TIME: TimeInterval = 10.0
 
 
 
@@ -87,6 +87,8 @@ let AWARENESS_STATUS = false
 
 let USER_USERNAME = "username"
 let USER_AVATAR = "avatar"
+let USER_CURRENTROOM = "currentRoom"
+let USER_STATUS = "status"
 
 let CHAT_CLASS_NAME = "ChatRooms"
 let CHAT_USER_POINTER = "userPointer"
@@ -105,10 +107,22 @@ let CODEJAM_CLASS_NAME = "CodeJam"
 let CODEJAM_NAME = "name"
 let CODEJAM_USER_POINTER = "userPointer"
 
+let CODEJAM_EVENT_CLASS_NAME = "CodeJamEvent"
+let CODEJAM_EVENT_NAME = "name"
+let CODEJAM_EVENT_USER_POINTER = "userPointer"
+
+let CODEJAM_INVITE_CLASS_NAME = "CodeJamInvite"
+let CODEJAM_INVITE_USER_POINTER = "userPointer"
+let CODEJAM_INVITE_ROOM_POINTER = "roomPointer"
+
 let USERCODEJAM_CLASS_NAME = "UserCodeJam"
 let USERCODEJAM_USER_POINTER = "userPointer"
 let USERCODEJAM_CODEJAM_POINTER = "codeJamPointer"
+let USERCODEJAM_USER_STATUS = "status"
 let AWARENESS = "awareness"
+
+let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://audesis.back4app.io", applicationId:PARSE_APP_KEY, clientKey:PARSE_CLIENT_KEY)
+
 
 // EXTENSION TO SHOW TIME AGO DATES
 extension UIViewController {
