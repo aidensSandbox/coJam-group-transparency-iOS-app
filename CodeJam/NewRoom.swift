@@ -95,11 +95,11 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingIm
         roomsClass[ROOMS_NAME] = nameTxt.text!.uppercased()
     
         // Save Image (if exists)
-        if roomImage.image != nil {
+        /*if roomImage.image != nil {
             let imageData = UIImageJPEGRepresentation(roomImage.image!, 0.8)
             let imageFile = PFFile(name:"image.jpg", data:imageData!)
             roomsClass[ROOMS_IMAGE] = imageFile
-        }
+        }*/
     
         // Saving block
         roomsClass.saveInBackground { (success, error) -> Void in

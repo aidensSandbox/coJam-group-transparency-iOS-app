@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CodeJam/CodeJam.swift"
-            timestampString = "521427406.290154"
+            timestampString = "521487310.278214"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "closeButt(_:)"
             landmarkType = "7">
          </BreakpointContent>

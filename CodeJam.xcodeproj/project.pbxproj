@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4B6796321EEE60FC00A02C83 /* Jam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6796311EEE60FC00A02C83 /* Jam.swift */; };
+		4B92E8681F15290400520CF1 /* AudioProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B92E8641F15290400520CF1 /* AudioProcessor.m */; };
+		4B92E8691F15290400520CF1 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B92E8671F15290400520CF1 /* TPCircularBuffer.c */; };
 		4BA6BA6F1EF19A3F00AFA2A7 /* CodeJam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6BA6E1EF19A3F00AFA2A7 /* CodeJam.swift */; };
 		4BA6BA711EF1A5AE00AFA2A7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6BA701EF1A5AE00AFA2A7 /* Users.swift */; };
 		4BABF14C1EDA94B800582FD7 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BABF1481EDA94B800582FD7 /* FBSDKCoreKit.framework */; };
@@ -57,6 +59,12 @@
 		21306D9BC8E5F2C895DD9FA7 /* Pods-CodeJam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeJam.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeJam/Pods-CodeJam.release.xcconfig"; sourceTree = "<group>"; };
 		4B52F3C01EDA97E400B740C0 /* CodeJam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeJam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6796311EEE60FC00A02C83 /* Jam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jam.swift; sourceTree = "<group>"; };
+		4B92E84C1F14AC4300520CF1 /* CodeJam-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CodeJam-Bridging-Header.h"; sourceTree = "<group>"; };
+		4B92E8631F15290400520CF1 /* AudioProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioProcessor.h; sourceTree = "<group>"; };
+		4B92E8641F15290400520CF1 /* AudioProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioProcessor.m; sourceTree = "<group>"; };
+		4B92E8651F15290400520CF1 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		4B92E8671F15290400520CF1 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
+		4B92E86A1F15356800520CF1 /* CodeJam-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CodeJam-Bridging-Header.h"; sourceTree = "<group>"; };
 		4BA6BA6E1EF19A3F00AFA2A7 /* CodeJam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeJam.swift; sourceTree = "<group>"; };
 		4BA6BA701EF1A5AE00AFA2A7 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		4BABF1481EDA94B800582FD7 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = CodeJam/Facebook/FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -152,6 +160,11 @@
 		72D8B4E41B9DC228008E8422 /* CodeJam */ = {
 			isa = PBXGroup;
 			children = (
+				4B92E8631F15290400520CF1 /* AudioProcessor.h */,
+				4B92E8641F15290400520CF1 /* AudioProcessor.m */,
+				4B92E8651F15290400520CF1 /* TPCircularBuffer.h */,
+				4B92E86A1F15356800520CF1 /* CodeJam-Bridging-Header.h */,
+				4B92E8671F15290400520CF1 /* TPCircularBuffer.c */,
 				13D35AE81E27C36B005C79A3 /* CodeJam.entitlements */,
 				4BA6BA701EF1A5AE00AFA2A7 /* Users.swift */,
 				4B6796311EEE60FC00A02C83 /* Jam.swift */,
@@ -169,6 +182,7 @@
 				72D8B5071B9DCD2A008E8422 /* KYCircularProgress.swift */,
 				72D8B5291B9DE9F7008E8422 /* Frameworks */,
 				72D8B4E51B9DC228008E8422 /* Supporting Files */,
+				4B92E84C1F14AC4300520CF1 /* CodeJam-Bridging-Header.h */,
 			);
 			path = CodeJam;
 			sourceTree = "<group>";
@@ -279,7 +293,7 @@
 					72D8B4E11B9DC228008E8422 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = XZ288DF5F9;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -383,8 +397,10 @@
 				72D8B5081B9DCD2A008E8422 /* KYCircularProgress.swift in Sources */,
 				4BA6BA6F1EF19A3F00AFA2A7 /* CodeJam.swift in Sources */,
 				72DFC60C1BA00B4600CC9CE5 /* Account.swift in Sources */,
+				4B92E8681F15290400520CF1 /* AudioProcessor.m in Sources */,
 				72E005451B9F35A100C28AEA /* TermsOfUse.swift in Sources */,
 				72D8B50A1B9DD95E008E8422 /* Configs.swift in Sources */,
+				4B92E8691F15290400520CF1 /* TPCircularBuffer.c in Sources */,
 				4B6796321EEE60FC00A02C83 /* Jam.swift in Sources */,
 				4BA6BA711EF1A5AE00AFA2A7 /* Users.swift in Sources */,
 				72D8B4EA1B9DC228008E8422 /* Record.swift in Sources */,
@@ -454,6 +470,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -494,6 +511,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -506,6 +524,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CodeJam/CodeJam.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -526,6 +545,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.audesis.codejam;
 				PRODUCT_NAME = CodeJam;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CodeJam/CodeJam-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -537,6 +558,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CodeJam/CodeJam.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -557,6 +579,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.audesis.codejam;
 				PRODUCT_NAME = CodeJam;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CodeJam/CodeJam-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

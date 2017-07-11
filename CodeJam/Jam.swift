@@ -71,6 +71,7 @@ class Jam: UIViewController,
         self.awarenessIcon.layer.borderWidth = 1.5
         self.awarenessIcon.layer.borderColor = UIColor.black.cgColor
         print("****************");
+        setUserStatus()
         getRoomDetails()
         loadUsers()
         subscribeToAwareness()
@@ -90,25 +91,30 @@ class Jam: UIViewController,
                 print(result)
                 self.roomAwarenessMode = result
                 self.updateRoom()
-                self.setUserAwareness()
+                self.setUserAwareness(force:false)
             }}
         
     }
     
     func updateRoom(){
         print("updateRoom")
-        if self.roomAwarenessMode {
-            self.activeButton.isHidden = true;
-            self.deactiveButton.isHidden = false;
-            //self.awarenessBtn.setTitle("Deactivate", for: .normal)
-            //self.awarenessBtn.backgroundColor = UIColor.red
-        }else{
-            self.activeButton.isHidden = false;
-            self.deactiveButton.isHidden = true;
-            //self.awarenessBtn.backgroundColor = UIColor.darkGray
-            //self.awarenessBtn.setTitle("Activate", for: .normal)
+        DispatchQueue.global(qos: .background).async {
+            // Background Thread
+            DispatchQueue.main.async {
+                // Run UI Updates
+                if self.roomAwarenessMode {
+                    self.activeButton.isHidden = true;
+                    self.deactiveButton.isHidden = false;
+                    //self.awarenessBtn.setTitle("Deactivate", for: .normal)
+                    //self.awarenessBtn.backgroundColor = UIColor.red
+                }else{
+                    self.activeButton.isHidden = false;
+                    self.deactiveButton.isHidden = true;
+                    //self.awarenessBtn.backgroundColor = UIColor.darkGray
+                    //self.awarenessBtn.setTitle("Activate", for: .normal)
+                }
+            }
         }
-
     }
     
     func updateUser(){
@@ -180,11 +186,13 @@ class Jam: UIViewController,
     }
     
     func awarenessTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        //activeJamAwareness()
+        
         if User.shared.awarenessMode {
             User.shared.awarenessMode = false;
+            User.shared.audioProcessor?.stop()
         } else{
             User.shared.awarenessMode = true;
+            User.shared.audioProcessor?.start()
         }
         let updatedUser = PFUser.current()!
         updatedUser[AWARENESS] = User.shared.awarenessMode
@@ -198,7 +206,7 @@ class Jam: UIViewController,
     
     func awarenessRoomTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         setRoomAwareness()
-        setUserAwareness()
+        setUserAwareness(force: true)
     }
     
     func setRoomAwareness(){
@@ -221,15 +229,24 @@ class Jam: UIViewController,
         }
     }
     
-    func setUserAwareness(){
+    func setUserAwareness(force:Bool){
         
-        User.shared.awarenessMode = self.roomAwarenessMode
-        let updatedUser = PFUser.current()!
-        updatedUser[AWARENESS] = User.shared.awarenessMode
-        updatedUser.saveInBackground { (success, error) -> Void in
-            if error == nil {
-                self.updateUser()
-                self.pushEvent(event: "refresh")
+        if User.shared.status == STATUS_AVAILABLE || force{
+            User.shared.awarenessMode = self.roomAwarenessMode
+            
+            if User.shared.awarenessMode {
+                User.shared.audioProcessor?.start()
+            } else{
+                User.shared.audioProcessor?.stop()
+            }
+            
+            let updatedUser = PFUser.current()!
+            updatedUser[AWARENESS] = User.shared.awarenessMode
+            updatedUser.saveInBackground { (success, error) -> Void in
+                if error == nil {
+                    self.updateUser()
+                    self.pushEvent(event: "refresh")
+                }
             }
         }
     
@@ -323,7 +340,7 @@ class Jam: UIViewController,
             let result = Bool(rObj[AWARENESS] as! NSNumber)
             self.roomAwarenessMode = result
             self.updateRoom()
-            self.setUserAwareness()
+            self.setUserAwareness(force:false)
         }
     }
     

@@ -6,8 +6,6 @@ created by FV iMAGINATION © 2015
 All Rights reserved
 
 -------------------------*/
-
-
 import Foundation
 import UIKit
 import ParseLiveQuery
@@ -65,14 +63,19 @@ extension UIViewController {
 }
 
 
+//AUDIO
+var knocked = false
+var onAwareness = false
+var gain = 6
+//var audioProcessor : AudioProcessor? = nil
+//let manager = CMMotionManager()
+//let motionUpdateInterval : Double = 0.2
+//var knockReset : Double = 2.0
+
 
 // PARSE KEYS ------------------------------------------------------------------------
 let PARSE_APP_KEY = "KJsBLVPpbDTU1MlGQfg7z00Ig0ogL6sGztBCa2HJ"
 let PARSE_CLIENT_KEY = "f8GmmDpIcbYHc9z0qxGUZQvHe2qCXBslRnP0Nsf3"
-
-
-
-
 
 
 

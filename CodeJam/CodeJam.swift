@@ -11,6 +11,8 @@ import UIKit
 import Parse
 import AudioToolbox
 import ParseLiveQuery
+import AVFoundation
+import CoreMotion
 
 // MARK: - CUSTOM ROOMS CELL
 class RoomCell: UICollectionViewCell {
@@ -29,7 +31,11 @@ class User{
     var awarenessMode = false
     var imageFile = UIImage(named: "logo")
     var currentRoom:PFObject?
+    var audioProcessor : AudioProcessor? = nil
 }
+
+
+
 
 
 // MARK:- ROOMS CONTROLLER
@@ -51,8 +57,15 @@ class CodeJam: UIViewController,
     /* Variables */
     var roomsArray = [PFObject]()
     
+    var knocked = false
+    var onAwareness = false
+    var gain = 6
+    var audioProcessor : AudioProcessor? = nil
+    let manager = CMMotionManager()
+    let motionUpdateInterval : Double = 0.2
+    var knockReset : Double = 2.0
+    
     override func viewDidAppear(_ animated: Bool) {
-        print("viewDidAppear")
         self.profileImg.layer.cornerRadius = self.profileImg.frame.size.width / 2;
         self.profileImg.clipsToBounds = true
         self.profileImg.layer.borderWidth = 4.0
@@ -81,7 +94,6 @@ class CodeJam: UIViewController,
             installation?["userID"] = PFUser.current()!.objectId!
             installation?.saveInBackground(block: { (succ, error) in
                 if error == nil {
-                    print("PUSH REGISTERED FOR: \(PFUser.current()!.username!)")
                 }
             })
             
@@ -114,16 +126,33 @@ class CodeJam: UIViewController,
                 }
                 User.shared.status = PFUser.current()![USER_STATUS] as! String
             }
+            
+            UIApplication.shared.isIdleTimerDisabled = true
+            
+            print("@@@@@@@@@@@@@@@@")
+            print("Setup Audio")
+            print("@@@@@@@@@@@@@@@@")
+            User.shared.audioProcessor = AudioProcessor()
+            User.shared.audioProcessor?.pauseMusic = true;
+            User.shared.audioProcessor?.surroundSound = true;
+            
+            let audioSession = AVAudioSession.sharedInstance()
+            do {
+                try audioSession.setActive(true)
+                print(AVAudioSession.sharedInstance().outputVolume)
+            }
+            catch {
+                print("Setting category to AVAudioSessionCategoryPlayback failed.")
+            }
+            
         }
         
     }
     
     func showInvite(room:PFObject){
-        
         let alert = UIAlertController(title: APP_NAME,
                                       message: "You have been invited to join in CodeJam \(room[ROOMS_NAME])",
             preferredStyle: .alert)
-        
         let ok = UIAlertAction(title: "Accept", style: .default, handler: { (action) -> Void in
             User.shared.currentRoom = room
             self.updateCurrentRoom()
@@ -135,7 +164,6 @@ class CodeJam: UIViewController,
     
     var subscriptionInvitation: Subscription<PFObject>?
     func subscribeToInvitation(){
-        print("@@@ subscribeTo JAM Invitation@@@")
         let query: PFQuery<PFObject> = PFQuery(className:CODEJAM_INVITE_CLASS_NAME)
         query.whereKey(CODEJAM_INVITE_USER_POINTER, equalTo: PFUser.current()!)
         subscriptionInvitation = liveQueryClient.subscribe(query).handle(Event.created) { _, object in
@@ -160,9 +188,13 @@ class CodeJam: UIViewController,
         if User.shared.awarenessMode {
             User.shared.awarenessMode = false;
             self.awarenessIcon.isHidden = true;
+            User.shared.audioProcessor?.stop()
+            self.setStatus()
         } else{
             User.shared.awarenessMode = true;
             self.awarenessIcon.isHidden = false;
+            User.shared.audioProcessor?.start()
+            self.profileImg.layer.borderColor = UIColor.black.cgColor
         }
     }
     
@@ -183,12 +215,12 @@ class CodeJam: UIViewController,
     }
     
     func setStatus(){
-        print("setStatus")
-        print(User.shared.status)
         if User.shared.status == STATUS_AVAILABLE {
             self.profileImg.layer.borderColor = UIColor.green.cgColor
+            self.pageControl.currentPage = 0
         } else{
             self.profileImg.layer.borderColor = UIColor.red.cgColor
+            self.pageControl.currentPage = 1
         }
     }
     
@@ -278,6 +310,13 @@ class CodeJam: UIViewController,
             
         }
     }
+    @IBAction func onAccountBtn(_ sender: UIButton) {
+        
+        let view = self.storyboard?.instantiateViewController(withIdentifier: "Account") as! Account
+        view.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        present(view, animated: true, completion: nil)
+    
+    }
     
     // MARK: - SEARCH BAR DELEGATES
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -311,10 +350,8 @@ class CodeJam: UIViewController,
         let updatedUser = PFUser.current()!
         updatedUser[USER_CURRENTROOM] = NSNull()
         updatedUser.setObject(NSNull(),forKey: USER_CURRENTROOM)
-        print(updatedUser)
         updatedUser.saveInBackground { (success, error) -> Void in
             if error == nil {
-                print(success)
             } else {
                 print(error)
             }
@@ -322,8 +359,6 @@ class CodeJam: UIViewController,
     }
 
     func joinInRoom(){
-        print("joinInRoom")
-        print(User.shared.currentRoom!)
         let jam = self.storyboard?.instantiateViewController(withIdentifier: "Jam") as! Jam
         jam.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         jam.codejamObj = User.shared.currentRoom!
@@ -333,13 +368,10 @@ class CodeJam: UIViewController,
     
     var subscription: Subscription<PFObject>?
     func subscribeTo(){
-        print("@@@ subscribeTo JAM @@@")
         let query: PFQuery<PFObject> = PFQuery(className:USERCODEJAM_CLASS_NAME)
         query.whereKey(USERCODEJAM_USER_POINTER, equalTo: PFUser.current()!)
         query.whereKey(USERCODEJAM_USER_STATUS, equalTo: "invited")
         subscription = liveQueryClient.subscribe(query).handle(Event.created) { _, object in
-            print("Inveted @ Chat Room");
-            print(object);
             let alert = UIAlertController(title: APP_NAME,
                                           message: "You have been invited to join in CodeJam",
                                           preferredStyle: .alert)
