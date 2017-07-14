@@ -93,7 +93,7 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingIm
     
         // Save data
         roomsClass[ROOMS_NAME] = nameTxt.text!.uppercased()
-    
+        roomsClass[AWARENESS] = false
         // Save Image (if exists)
         /*if roomImage.image != nil {
             let imageData = UIImageJPEGRepresentation(roomImage.image!, 0.8)
