@@ -326,7 +326,12 @@ class Jam: UIViewController,
         query.whereKey(CHAT_ROOM_POINTER, equalTo: codejamObj)
         query.whereKey(CODEJAM_EVENT_USER_POINTER, notEqualTo: PFUser.current()!)
         subscription = liveQueryClient.subscribe(query).handle(Event.created) { _, object in
-            self.loadUsers();
+            print("@@@ Created Event JAM @@@")
+            var rObj = PFObject(className: CODEJAM_EVENT_CLASS_NAME)
+            rObj = object
+            if (rObj[CODEJAM_EVENT_USER_POINTER] as! PFUser).objectId != PFUser.current()!.objectId{
+                self.loadUsers();
+            }
         }
     }
     var subscriptionAwareness: Subscription<PFObject>?
@@ -367,6 +372,7 @@ class Jam: UIViewController,
     
     // MARK: - LOAD CHATS OF THIS ROOM
     func loadUsers() {
+        print("loadUsers")
         usersArray.removeAll()
         let query : PFQuery = PFUser.query()!
         query.whereKey(USER_CURRENTROOM, equalTo: codejamObj)
@@ -376,8 +382,8 @@ class Jam: UIViewController,
             if error == nil {
                 self.usersArray = objects!
                 self.collectionView.reloadData()
-                self.refreshTimer.invalidate()
-                self.refreshTimer = Timer.scheduledTimer(timeInterval: REFRESH_TIME, target: self, selector: #selector(self.loadUsers), userInfo: nil, repeats: true)
+                //self.refreshTimer.invalidate()
+                //self.refreshTimer = Timer.scheduledTimer(timeInterval: REFRESH_TIME, target: self, selector: #selector(self.loadUsers), userInfo: nil, repeats: true)
                 
             } else {
                 self.simpleAlert("\(error!.localizedDescription)")
@@ -389,62 +395,61 @@ class Jam: UIViewController,
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return usersArray.count + 1
+        return usersArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserCell", for: indexPath) as! UserCell
         
-        let isIndexValid = usersArray.indices.contains((indexPath as NSIndexPath).row)
-        if isIndexValid{
+        //let isIndexValid = usersArray.indices.contains((indexPath as NSIndexPath).row)
+        //if isIndexValid{
             
-            let user = usersArray[(indexPath as NSIndexPath).row] as! PFUser
-            let imageFile = user[USER_AVATAR] as? PFFile
-            
-            /*var q = PFUser.query()
-            q?.whereKey("objectId", notEqualTo:user.objectId!)
-            q?.findObjectsInBackground { (info, error)-> Void in
-                if error == nil {
-                   print(info)
-                }}*/
-            //try? user.fetch()
+        let user = usersArray[(indexPath as NSIndexPath).row] as! PFUser
+        let imageFile = user[USER_AVATAR] as? PFFile
+        print(user)
+        if imageFile == nil{
+            cell.userImage.image = UIImage(named: "logo")
+        }else{
             imageFile?.getDataInBackground { (imageData, error) -> Void in
                 if error == nil {
                     if let imageData = imageData {
                         cell.userImage.image = UIImage(data:imageData)
-                        cell.userImage.layer.cornerRadius = cell.userImage.frame.size.width / 2;
-                        cell.userImage.clipsToBounds = true
-                        cell.userImage.layer.borderWidth = 3.0
-                        
-                        cell.awarenessImage.layer.cornerRadius = cell.awarenessImage.frame.size.width / 2;
-                        cell.awarenessImage.clipsToBounds = true
-                        cell.awarenessImage.layer.borderWidth = 1.5
-                        cell.awarenessImage.layer.borderColor = UIColor.black.cgColor
-                        
-                        let userAwareness = Bool(user[AWARENESS] as! NSNumber)
-                        
-                        if user[USER_STATUS] as! String == STATUS_AVAILABLE {
-                            cell.userImage.layer.borderColor = UIColor.green.cgColor
-                        } else{
-                            cell.userImage.layer.borderColor = UIColor.red.cgColor
-                        }
-                        
-                        if userAwareness {
-                            cell.userImage.layer.borderColor = UIColor.black.cgColor
-                            cell.awarenessImage.isHidden = false;
-                        } else{
-                            cell.awarenessImage.isHidden = true;
-                        }
                     }
                 
                 }}
-        }else{
+        }
+        
+        cell.userImage.layer.cornerRadius = cell.userImage.frame.size.width / 2;
+        cell.userImage.clipsToBounds = true
+        cell.userImage.layer.borderWidth = 3.0
+        
+        cell.awarenessImage.layer.cornerRadius = cell.awarenessImage.frame.size.width / 2;
+        cell.awarenessImage.clipsToBounds = true
+        cell.awarenessImage.layer.borderWidth = 1.5
+        cell.awarenessImage.layer.borderColor = UIColor.black.cgColor
+        
+        let userAwareness = Bool(user[AWARENESS] as! NSNumber)
+        
+        if user[USER_STATUS] as! String == STATUS_AVAILABLE {
+            cell.userImage.layer.borderColor = UIColor.green.cgColor
+        } else{
+            cell.userImage.layer.borderColor = UIColor.red.cgColor
+        }
+        
+        if userAwareness {
+            cell.userImage.layer.borderColor = UIColor.black.cgColor
+            cell.awarenessImage.isHidden = false;
+        } else{
+            cell.awarenessImage.isHidden = true;
+        }
+        
+        /*}else{
             cell.userImage.layer.borderWidth = 0
             cell.userImage.image = UIImage(named: "newRoomButt")
             cell.awarenessImage.isHidden = true;
-        }
+        }*/
         // cell layout
-        cell.layer.cornerRadius = 5
+        //cell.layer.cornerRadius = 5
         
         return cell
     }
